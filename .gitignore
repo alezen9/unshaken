@@ -1,0 +1,17 @@
+*.blend1
+*.blend~
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+*node_modules
+*dist
+*dist-ssr
+*.local
+
+# Editor directories and files
+*.vscode/*
+*!.vscode/extensions.json
+*.DS_Store
