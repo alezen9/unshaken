@@ -3,12 +3,20 @@ import { DoubleSide, Mesh } from "three";
 import jpgTexture from "/baked.jpg?url";
 import glbModel from "/unshaken.glb?url";
 
-console.log({ jpgTexture, glbModel });
+console.log({ jpgTexture, glbModel, env: import.meta.env });
+
+const prefixedJpgTexture = import.meta.env.PROD
+  ? `${import.meta.env.BASE_URL}${jpgTexture}`
+  : jpgTexture;
+
+const prefixedGlbModel = import.meta.env.PROD
+  ? `${import.meta.env.BASE_URL}${glbModel}`
+  : glbModel;
 
 const UnshakenScene = () => {
-  const bakedTexture = useTexture(jpgTexture);
+  const bakedTexture = useTexture(prefixedJpgTexture);
   bakedTexture.flipY = false;
-  const model = useGLTF(glbModel);
+  const model = useGLTF(prefixedGlbModel);
 
   return (
     <group position-y={-3.5}>
