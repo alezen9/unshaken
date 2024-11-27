@@ -1,0 +1,1 @@
+html,body,#root{position:fixed;top:0;right:0;bottom:0;left:0;overflow:hidden;margin:0;padding:0}.leva-wrapper{position:absolute}.leva-wrapper>div{max-width:380px;width:100%}@media screen and (max-width: 500px){.leva-wrapper{display:none}}
