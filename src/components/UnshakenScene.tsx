@@ -1,7 +1,7 @@
 import { useGLTF, useTexture } from "@react-three/drei";
 import { DoubleSide, Mesh } from "three";
-import jpgTexture from "../assets/baked.jpg?url";
-import glbModel from "../assets/unshaken.glb?url";
+import jpgTexture from "/baked.jpg?url";
+import glbModel from "/unshaken.glb?url";
 
 const UnshakenScene = () => {
   const bakedTexture = useTexture(jpgTexture);
