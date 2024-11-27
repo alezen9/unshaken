@@ -2,4 +2,3 @@ design/*.blend filter=lfs diff=lfs merge=lfs -text
 design/*.png filter=lfs diff=lfs merge=lfs -text
 design/*.jpg filter=lfs diff=lfs merge=lfs -text
 design/*.hdr filter=lfs diff=lfs merge=lfs -text
-# Ensure other files with these extensions outside the design folder are not tracked by LFS
