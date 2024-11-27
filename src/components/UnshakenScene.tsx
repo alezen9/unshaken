@@ -1,10 +1,12 @@
 import { useGLTF, useTexture } from "@react-three/drei";
 import { DoubleSide, Mesh } from "three";
+import jpgTexture from "/baked.jpg?url";
+import glbModel from "/unshaken.glb?url";
 
 const UnshakenScene = () => {
-  const bakedTexture = useTexture("./unshaken/baked.jpg");
+  const bakedTexture = useTexture(jpgTexture);
   bakedTexture.flipY = false;
-  const model = useGLTF("./unshaken.glb");
+  const model = useGLTF(glbModel);
 
   return (
     <group position-y={-3.5}>
