@@ -1,13 +1,18 @@
 import { useEffect, useRef, useState } from "react";
 import audioFile from "/audio.mp3?url";
+import useCinematicMode from "../stores/useCinematicMode";
 
 const BANDS_TRANSITION_TIME_IN_MS = 2000;
 
 const Interface = () => {
   const audio = useRef(new Audio(audioFile));
   const audioFadoutInterval = useRef<number>();
-  const [isCinematic, setIsCinematic] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const { toggleCinematic, isCinematicActive } = useCinematicMode();
+
+  useEffect(() => {
+    audio.current.loop = true;
+  }, []);
 
   useEffect(() => {
     if (!isButtonDisabled) return;
@@ -26,52 +31,65 @@ const Interface = () => {
   }, []);
 
   const fadeoutAudio = () => {
-    if (audio.current) {
-      const stepInMs = 10;
-      const volumeStep =
-        audio.current.volume / (BANDS_TRANSITION_TIME_IN_MS / stepInMs);
+    if (!audio.current) return;
+    const stepInMs = 10;
+    const volumeStep =
+      audio.current.volume / (BANDS_TRANSITION_TIME_IN_MS / stepInMs);
 
-      audioFadoutInterval.current = setInterval(() => {
-        const isDone = audio.current.volume <= volumeStep;
-        if (isDone) {
-          audio.current.pause();
-          audio.current.currentTime = 0; // Reset to the beginning
-          audio.current.volume = 1; // Reset volume to max
-          clearInterval(audioFadoutInterval.current);
-        } else {
-          audio.current.volume = Math.max(0, audio.current.volume - volumeStep); // Decrease volume
-        }
-      }, stepInMs);
-    }
+    audioFadoutInterval.current = setInterval(() => {
+      const isDone = audio.current.volume <= volumeStep;
+      if (isDone) {
+        audio.current.pause();
+        audio.current.currentTime = 0; // Reset to the beginning
+        audio.current.volume = 1; // Reset volume to max
+        clearInterval(audioFadoutInterval.current);
+      } else {
+        audio.current.volume = Math.max(0, audio.current.volume - volumeStep); // Decrease volume
+      }
+    }, stepInMs);
   };
 
   const onToggleCinematicMode = () => {
-    if (isCinematic) fadeoutAudio();
+    if (isCinematicActive) fadeoutAudio();
     else audio.current.play();
-    setIsCinematic((state) => !state);
+    toggleCinematic();
     setIsButtonDisabled(true);
   };
 
   return (
     <>
-      <div className={`band upper ${isCinematic && "cinematic"}`} />
-      <div className={`band lower ${isCinematic && "cinematic"}`} />
+      <div className={`band upper ${isCinematicActive && "cinematic"}`} />
+      <div className={`band lower ${isCinematicActive && "cinematic"}`} />
       <button
-        className={`cinematic-btn ${isCinematic && "cinematic"}`}
+        className={`cinematic-btn ${isCinematicActive && "cinematic"}`}
         disabled={isButtonDisabled}
         onClick={onToggleCinematicMode}
       >
-        <svg
-          fill="currentColor"
-          stroke="currentColor"
-          strokeWidth=".00032"
-          version="1.1"
-          viewBox="0 0 32 32"
-        >
-          <path d="m26 16h-20c-1.7 0-3-1.3-3-3s1.3-3 3-3h20c1.7 0 3 1.3 3 3s-1.3 3-3 3z" />
-          <path d="m26.7 14.3c-0.1-0.2-0.4-0.3-0.7-0.3h-20c-0.3 0-0.6 0.1-0.7 0.3-0.2 0.3-0.3 0.5-0.3 0.8l2 16c0.1 0.5 0.5 0.9 1 0.9h5c-0.5 0-1-0.4-1-0.9l-1-14c0-0.6 0.4-1 0.9-1.1 0.6 0 1 0.4 1.1 0.9l1 14c0 0.6-0.4 1-0.9 1.1h-0.1 6-0.1c-0.6 0-1-0.5-0.9-1.1l1-14c0-0.6 0.5-1 1.1-0.9 0.6 0 1 0.5 0.9 1.1l-1 14c0 0.5-0.5 0.9-1 0.9h5c0.5 0 0.9-0.4 1-0.9l2-16c0-0.3-0.1-0.5-0.3-0.8z" />
-          <path d="m25.8 12h-19.6c-0.4 0-0.8-0.3-0.9-0.7-0.2-0.4-0.3-0.8-0.3-1.3 0-1.5 0.8-2.8 2-3.5v-0.5c0-2.2 1.8-4 4-4 0.5 0 1 0.1 1.4 0.3 0.7-1.4 2-2.3 3.6-2.3s2.9 0.9 3.6 2.3c0.4-0.2 0.9-0.3 1.4-0.3 2.2 0 4 1.8 4 4v0.5c1.2 0.7 2 2 2 3.5 0 0.5-0.1 0.9-0.2 1.3-0.2 0.4-0.5 0.7-1 0.7zm-18.8-2h18c0-0.9-0.6-1.7-1.5-1.9-0.3-0.1-0.5-0.3-0.6-0.5-0.1-0.3-0.1-0.6 0-0.8 0.1-0.3 0.1-0.6 0.1-0.8 0-1.1-0.9-2-2-2-0.5 0-1 0.2-1.3 0.5s-0.7 0.3-1 0.2c-0.4-0.1-0.7-0.5-0.7-0.8-0.1-1.1-1-1.9-2-1.9s-1.9 0.8-2 1.9c0 0.4-0.3 0.7-0.6 0.9-0.4 0.1-0.8 0.1-1-0.2-0.4-0.4-0.9-0.6-1.4-0.6-1.1 0-2 0.9-2 2 0 0.2 0 0.5 0.1 0.7 0.1 0.3 0.1 0.6 0 0.8-0.1 0.3-0.3 0.5-0.6 0.6-0.9 0.2-1.5 1-1.5 1.9z" />
-        </svg>
+        {!isCinematicActive && (
+          <svg
+            viewBox="-3 0 28 28"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor"
+          >
+            <path
+              d="M21.415 12.554 2.418.311C1.291-.296 0-.233 0 1.946v24.108c0 1.992 1.385 2.306 2.418 1.635l18.997-12.243a2.076 2.076 0 0 0 0-2.892"
+              fillRule="evenodd"
+            />
+          </svg>
+        )}
+        {isCinematicActive && (
+          <svg
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fillRule="evenodd"
+              clipRule="evenodd"
+              d="M20 5v14a3 3 0 0 1-3 3h-1a3 3 0 0 1-3-3V5a3 3 0 0 1 3-3h1a3 3 0 0 1 3 3ZM8 2a3 3 0 0 1 3 3v14a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V5a3 3 0 0 1 3-3h1Z"
+            />
+          </svg>
+        )}
       </button>
     </>
   );
