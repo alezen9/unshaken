@@ -1,16 +1,10 @@
 import { Canvas } from "@react-three/fiber";
 import Experience from "./Experience";
-import { Leva } from "leva";
-import { useState } from "react";
+import Interface from "./components/Interface";
 
 const App = () => {
-  const [isDebug] = useState(() => window.location.hash === "#debug");
-
   return (
     <>
-      <div className="leva-wrapper">
-        <Leva hidden={!isDebug} />
-      </div>
       <Canvas
         dpr={[1, 2]}
         flat
@@ -23,6 +17,7 @@ const App = () => {
       >
         <Experience />
       </Canvas>
+      <Interface />
     </>
   );
 };

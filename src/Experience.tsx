@@ -1,19 +1,9 @@
 import { OrbitControls, Sky } from "@react-three/drei";
-import { Perf } from "r3f-perf";
-import { useControls } from "leva";
 import UnshakenScene from "./components/UnshakenScene";
 
 const Experience = () => {
-  const { isPerformancePanelVisible } = useControls("Monitoring", {
-    isPerformancePanelVisible: {
-      value: false,
-      label: "Show performance",
-    },
-  });
-
   return (
     <>
-      {isPerformancePanelVisible && <Perf position="top-left" />}
       <OrbitControls
         makeDefault
         enableDamping
