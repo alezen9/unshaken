@@ -40,6 +40,10 @@ const Interface = () => {
       const isDone = audio.current.volume <= volumeStep;
       if (isDone) {
         audio.current.pause();
+        if (!audio.current.paused) {
+          audio.current.src = "";
+          audio.current.load();
+        }
         audio.current.currentTime = 0; // Reset to the beginning
         audio.current.volume = 1; // Reset volume to max
         clearInterval(audioFadoutInterval.current);
