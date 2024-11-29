@@ -1,6 +1,6 @@
 # 🐴 Unshaken
 
-A low-poly homage to one of the greatest games ever made: **Red Dead Redemption 2**. This project draws inspiration from the breathtaking visuals and emotional depth of RDR2, which captured my heart and soul despite not being my usual genre of choice. Through this project, I aimed to recreate a serene sunset scene featuring Arthur Morgan's horse in an iconic moment, as a personal tribute to the game.
+A low-poly homage to one of the greatest games ever made: **Red Dead Redemption 2**. This project draws inspiration from the breathtaking visuals and emotional depth of RDR2, which captured my heart and soul despite not being my usual genre of choice. Through this project, I aimed to recreate a serene sunrise scene featuring Arthur Morgan's horse in an iconic moment, as a personal tribute to the game.
 
 This project was made possible by the incredible [Three.js Journey](https://threejs-journey.com/) course by Bruno Simon. During the course, we created a beautiful portal scene to get a first grasp of Blender. That, combined with curiosity, research, and countless mistakes, allowed me to create this far-from-perfect but deeply personal and rewarding scene.
 
