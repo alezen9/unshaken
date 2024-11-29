@@ -73,6 +73,7 @@ This project is a stepping stone, and there’s plenty of room for growth. Here�
 
 - **Bruno Simon** for the [Three.js Journey](https://threejs-journey.com/) course, which laid the foundation for this project.
 - **Rockstar Games** for creating a masterpiece that continues to inspire millions of players and creators worldwide. Even years after its release, it’s still a marvelous and breathtaking experience from start to finish.
+- **Royalty free music** from [FesliyanStudios](https://www.FesliyanStudios.com)
 
 <br />
 <br />
