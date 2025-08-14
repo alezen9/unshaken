@@ -10,7 +10,7 @@ This project was made possible by the incredible [Three.js Journey](https://thre
 
 ## 🌅 Preview
 
-[![Preview Image](/public/docs-preview.png)](https://alezen9.github.io/unshaken/)
+[![Preview Image](/public/docs-preview.png)](https://unshaken.aleksandargjoreski.dev)
 Click the image above to view the live experience directly!
 
 <br />
